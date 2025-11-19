@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "Shop.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Shop.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Shop.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shop.Application.dll": {}
+        }
+      },
+      "Shop.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Shop.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Shop.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Shop.Application/1.0.0": {
+      "type": "project",
+      "path": "../Shop.Application/Shop.Application.csproj",
+      "msbuildProject": "../Shop.Application/Shop.Application.csproj"
+    },
+    "Shop.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Shop.Domain/Shop.Domain.csproj",
+      "msbuildProject": "../Shop.Domain/Shop.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "Shop.Application >= 1.0.0",
+      "Shop.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\alizakizadeh\\.nuget\\packages\\": {},
@@ -39,7 +77,14 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "G:\\Project\\ShopSolution\\ShopSolution\\Shop.Application\\Shop.Application.csproj": {
+              "projectPath": "G:\\Project\\ShopSolution\\ShopSolution\\Shop.Application\\Shop.Application.csproj"
+            },
+            "G:\\Project\\ShopSolution\\ShopSolution\\Shop.Domain\\Shop.Domain.csproj": {
+              "projectPath": "G:\\Project\\ShopSolution\\ShopSolution\\Shop.Domain\\Shop.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
