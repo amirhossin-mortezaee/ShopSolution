@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Domain.Commons
+﻿namespace Shop.Domain.Commons
 {
     /// <summary>
     /// Marker interface to indicate that an Entity is an Aggregate Root.

@@ -1,18 +1,13 @@
-﻿using OnlineShop.Domain.Commons;
-using Shop.Domain.Commons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Shop.Domain.Commons;
+using Shop.Domain.Entities.ProductAgg.ValueObjects;
 
 namespace Shop.Domain.Entities.ProductAgg
 {
     public class Product : BaseEntity , IAggregateRoot
     {
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-        public decimal Price { get; private set; }
+        public ProductName Name { get; private set; }
+        public ProductDescription Description { get; private set; }
+        public Money Price { get; private set; }
         public int Stock { get; private set; }
         public Guid CategoryId { get; private set; }
         public bool IsActive { get; private set; }
