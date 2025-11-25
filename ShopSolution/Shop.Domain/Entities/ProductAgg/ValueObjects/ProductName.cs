@@ -4,17 +4,17 @@ namespace Shop.Domain.Entities.ProductAgg.ValueObjects
 {
     public class ProductName : ValueObject
     {
-        public string Value { get;}
+        public string Value { get; private set; }  // non-nullable
 
-        private ProductName() {}
+        private ProductName() { }  // برای EF Core
 
         private ProductName(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("نام محصول نمی تواند خالی باشد.");
+                throw new ArgumentException("نام محصول نمی‌تواند خالی باشد");
 
             if (value.Length < 3)
-                throw new ArgumentException("نام محصول باید حداقل سه کاراکتر باشد.");
+                throw new ArgumentException("نام محصول باید حداقل ۳ کاراکتر باشد");
 
             Value = value;
         }

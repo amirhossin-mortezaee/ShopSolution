@@ -1,5 +1,4 @@
-﻿using OnlineShop.Domain.Commons;
-using Shop.Domain.Commons;
+﻿using Shop.Domain.Commons;
 
 namespace Shop.Application.Interfaces
 {

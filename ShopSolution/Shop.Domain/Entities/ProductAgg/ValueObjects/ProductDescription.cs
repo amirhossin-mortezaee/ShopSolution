@@ -1,28 +1,24 @@
 ﻿using Shop.Domain.Commons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shop.Domain.Entities.ProductAgg.ValueObjects
 {
     public class ProductDescription : ValueObject
     {
-        public string Value { get;}
+        public string Value { get; private set; }
 
         private ProductDescription() { }
 
         private ProductDescription(string value)
         {
-            if (value?.Length > 500)
-                throw new ArgumentException("توضیحات نمی تواند بیشتر از 500 کاراکتر باشد");
+            if (string.IsNullOrWhiteSpace(value))
+                throw new ArgumentException("توضیحات محصول نمی‌تواند خالی باشد");
+
             Value = value;
         }
 
-        public static ProductDescription Create(string value) 
+        public static ProductDescription Create(string value)
         {
-            return new ProductDescription(value); 
+            return new ProductDescription(value);
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
