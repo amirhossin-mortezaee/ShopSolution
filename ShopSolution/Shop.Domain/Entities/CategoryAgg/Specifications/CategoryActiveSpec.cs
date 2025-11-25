@@ -3,16 +3,11 @@ using System.Linq.Expressions;
 
 namespace Shop.Domain.Entities.CategoryAgg.Specifications
 {
-    public class CategoryByNameSpec : Specification<Category>
+    public class CategoryActiveSpec : Specification<Category>
     {
-        private readonly string _name;
-
-        public CategoryByNameSpec(string name) => _name = name;
-
-
         public override Expression<Func<Category, bool>> ToExpression()
         {
-            return c => c.Name.Value.Contains(_name);
+            return c => c.IsActive;
         }
     }
 }
