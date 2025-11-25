@@ -1,4 +1,6 @@
-﻿using Shop.Domain.Commons;
+﻿using MediatR;
+using Shop.Domain.Commons;
+using Shop.Domain.Entities.CategoryAgg.Events;
 using Shop.Domain.Entities.CategoryAgg.ValueObjects;
 
 namespace Shop.Domain.Entities.CategoryAgg
@@ -11,6 +13,9 @@ namespace Shop.Domain.Entities.CategoryAgg
         public Guid? ParentId { get; set; }
         public bool IsActive { get; set; }
 
+        private readonly List<INotification> _events = new();
+        public IReadOnlyList<INotification> DomainEvents => _events.AsReadOnly();
+
         // ---------- Constructors ----------
         private Category() { }
 
@@ -20,9 +25,9 @@ namespace Shop.Domain.Entities.CategoryAgg
             Description = description;
             ParentId = parentId;
             IsActive = true;
-            
-            //ایونت دامنه
-            //Todo:
+
+
+            _events.Add(new CategoryCreatedEvent(Id, Name.Value));
         }
 
         // ---------- Behavior Methods ----------
@@ -31,27 +36,46 @@ namespace Shop.Domain.Entities.CategoryAgg
             if (string.Equals(Name.Value, newName, StringComparison.OrdinalIgnoreCase))
                 throw new InvalidOperationException("نام دسته‌بندی مشابه نام قبلی است.");
 
+            var oldName = Name.Value;
             Name = new CategoryName(newName);
+
+            _events.Add(new CategoryDescriptionChangedEvent(Id, oldName, newName));
         }
 
         public void ChangeDescription(string newDescription)
         {
+            var oldDescription = Description.Value;
             Description = new CategoryDescription(newDescription);
+
+            _events.Add(new CategoryDescriptionChangedEvent(Id, oldDescription, newDescription));
         }
 
         public void ChangeParent(Guid? newParentId)
         {
+            var oldParentId = ParentId;
             ParentId = newParentId;
+
+            _events.Add(new CategoryParentChangedEvent(Id, oldParentId, newParentId));
         }
 
         public void Activate()
         {
-            IsActive = true;
+            if (!IsActive)
+            {
+                IsActive = true;
+                _events.Add(new CategoryActivatedEvent(Id));
+            }
         }
 
         public void Deactivate()
         {
-            IsActive = false;
+            if (IsActive)
+            {
+                IsActive = false;
+                _events.Add(new CategoryDeactivatedEvent(Id));
+            }
         }
+
+        public void ClearEvents() => _events.Clear();
     }
 }
